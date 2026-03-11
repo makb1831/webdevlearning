@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Component</title>
+    <style>
+        body {
+            display: block;
+            flex-direction: row;
+            align-items: center;
+            margin: 0;
+        }
+        .display {
+            width: 50%;
+            font-size: 2em;
+            padding: 20px 10px 30px 10px;
+            border: 1px solid #ccc;
+            margin: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+        }
+        .x {
+            width: 50%;
+            font-size: 1.5em;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body> 
+    <div class="display">
+        <div>Content 1</div>
+        <div>Content 2</div>
+        <div>Content 3</div>
+        <div>Content 4</div>
+    </div>
+    <div class="x">
+        <p>This is a paragraph outside the display component.</p>
+        <p>It should not be affected by the display property of the display component.</p>
+    </div>
+    <table border="1">
+        <tr>
+            <th colspan="2">Table Cell 1</th>
+        </tr>
+        <tr>
+            <td rowspan="2">Table Cell 2</td>
+            <td>Table Cell 3</td>
+        </tr>
+        <tr>
+            <td>Table Cell 4</td>
+        </tr>
+    </table>
+</body>
+</html>
