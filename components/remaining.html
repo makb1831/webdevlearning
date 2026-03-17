@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remaining — Demos</title>
+    <style>
+        :root{--accent:#2b7a78;--muted:#f4f4f4}
+        body{font-family:system-ui,Segoe UI,Arial;margin:0;padding:20px;background:#fff}
+        header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+        nav{display:flex;gap:12px;align-items:center}
+        /* Nav + dropdown using details (accessible) */
+        nav .brand{font-weight:700;color:var(--accent)}
+        nav details{position:relative}
+        nav summary{list-style:none;cursor:pointer;padding:6px 10px;border-radius:6px}
+        nav details[open] summary{background:rgba(43,122,120,0.06)}
+        nav details ul{position:absolute;left:0;top:calc(100% + 6px);background:#fff;border:1px solid #ddd;padding:6px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+        nav details ul li{padding:6px 10px;white-space:nowrap}
+
+        /* Demonstrate background-position, size, repeat */
+        .bg-examples{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+        .card{padding:14px;border-radius:8px;background:var(--muted);min-height:110px;display:flex;flex-direction:column;justify-content:center}
+        .bg-1{background:linear-gradient(135deg,#f6d365 0%,#fda085 100%);background-position:center;background-size:cover}
+        .bg-2{background:radial-gradient(circle at 20% 30%,#c1fba4 10%,transparent 11%),linear-gradient(180deg,#89f7fe,#66a6ff);background-position:20% 30%;background-size:60% 60%;background-repeat:no-repeat}
+        .bg-3{background-image:repeating-linear-gradient(45deg,#fff,#fff 10px,#eee 10px,#eee 20px)}
+
+        /* Overflow demos */
+        .overflow-row{display:flex;gap:12px;margin-bottom:18px}
+        .box{width:220px;height:80px;padding:8px;border:1px dashed #ccc;overflow:auto}
+        .box.hidden{overflow:hidden}
+        .wide{width:420px}
+
+        /* Flex grow/shrink */
+        .flex-demo{display:flex;gap:10px;margin-bottom:18px}
+        .flex-demo .item{padding:10px;background:#eef;border-radius:6px}
+        .grow{flex:1 1 0}
+        .shrink{flex:0 1 100px}
+
+        /* gap limitations note (works with modern browsers; row-gap/column-gap for grid additionally) */
+        .grid-demo{display:grid;grid-template-columns:repeat(3,1fr);column-gap:18px;row-gap:8px;margin-bottom:18px}
+
+        /* simple transition animation */
+        .anim{display:inline-block;padding:10px 14px;background:var(--accent);color:#fff;border-radius:8px;transition:transform .25s ease,box-shadow .25s ease}
+        .anim:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(43,122,120,.18)}
+
+        /* suggestions list */
+        .suggestions{border:1px solid #ddd;padding:6px;border-radius:6px;max-width:320px;background:#fff}
+        .suggestions ul{margin:0;padding:0;list-style:none}
+        .suggestions li{padding:6px;border-radius:4px}
+        .suggestions li:hover{background:#f2f2f2}
+
+        footer{margin-top:28px;font-size:.9rem;color:#555}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">Remaining Demo</div>
+        <nav>
+            <a href="#">Home</a>
+            <details>
+                <summary>Components ▾</summary>
+                <ul>
+                    <li><a href="../index.html">Index</a></li>
+                    <li><a href="../first.html">First</a></li>
+                    <li><a href="display.html">Display</a></li>
+                </ul>
+            </details>
+            <a href="#examples">Examples</a>
+            <form onsubmit="event.preventDefault();" style="margin-left:8px">
+                <input list="quick" id="nav-search" placeholder="Quick search..." style="padding:6px;border-radius:6px;border:1px solid #ccc">
+                <datalist id="quick">
+                    <option value="background-position"></option>
+                    <option value="overflow"></option>
+                    <option value="flex grow/shrink"></option>
+                </datalist>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        <section class="bg-examples">
+            <div class="card bg-1">background-position:center / background-size:cover</div>
+            <div class="card bg-2">radial + linear — positioned at 20% 30%</div>
+            <div class="card bg-3">repeating-linear-gradient for patterns</div>
+        </section>
+
+        <section class="overflow-row">
+            <div>
+                <h3>Overflow auto (scroll)</h3>
+                <div class="box">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet.</p>
+                    <p>Extra content to force a scrollbar horizontally and vertically so you can try overflow-x and overflow-y.</p>
+                </div>
+            </div>
+            <div>
+                <h3>Overflow hidden</h3>
+                <div class="box hidden wide">
+                    <p>This box hides overflowing content. Resize to see clipped content — useful for image masks and cropping.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3>Flex grow / shrink</h3>
+            <div class="flex-demo">
+                <div class="item" style="width:140px">Fixed 140px</div>
+                <div class="item grow">Grow (flex:1 1 0) expands to fill space</div>
+                <div class="item shrink">Shrink (flex:0 1 100px) won’t grow but can shrink</div>
+            </div>
+        </section>
+
+        <section class="grid-demo">
+            <div class="card">Grid item A</div>
+            <div class="card">Grid item B</div>
+            <div class="card">Grid item C</div>
+            <div class="card">Grid item D</div>
+            <div class="card">Grid item E</div>
+            <div class="card">Grid item F</div>
+        </section>
+
+        <section>
+            <h3>Simple transition animation</h3>
+            <button class="anim">Hover me</button>
+        </section>
+
+        <section id="examples">
+            <h3>Search recommendations (datalist + JS)</h3>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+                <div>
+                    <input id="search" placeholder="Type feature name..." style="padding:8px;border:1px solid #ccc;border-radius:6px;width:320px" aria-label="search features">
+                    <datalist id="features"></datalist>
+                </div>
+                <div class="suggestions" id="suggestBox" aria-live="polite" style="display:none">
+                    <strong>Suggestions</strong>
+                    <ul id="slist"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3>Form controls (select, meter, progress)</h3>
+            <label>Choose option: <select><option>One</option><option>Two</option><option>Three</option></select></label>
+            <div style="margin-top:8px"><meter value="0.6">60%</meter> <progress value="40" max="100"></progress></div>
+        </section>
+
+        <section>
+            <h3>Media and iframe</h3>
+            <video controls width="320" style="display:block;margin-bottom:8px">
+                <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+                Your browser does not support video.
+            </video>
+            <audio controls>
+                <source src="https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3" type="audio/mpeg">
+            </audio>
+            <div style="margin-top:12px">
+                <iframe src="../examples/store.html" width="100%" height="160" style="border:1px solid #ddd;border-radius:6px"></iframe>
+            </div>
+        </section>
+
+        <section style="margin-top:12px">
+            <h3>Less-common tags: picture, details, figure</h3>
+            <figure style="display:flex;gap:12px;align-items:center">
+                <picture>
+                    <source media="(max-width:600px)" srcset="../images/sample-small.jpg">
+                    <img src="../images/sample.jpg" alt="sample" width="120" style="border-radius:6px">
+                </picture>
+                <figcaption>Responsive image with <code>picture</code> and <code>figure</code>.</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer>
+        <small>Demonstrates background-position/size, overflow, gap, flex grow/shrink, transitions, datalist suggestions, select, iframe, media elements.</small>
+    </footer>
+
+    <script>
+        // Simple suggestions logic to augment datalist
+        const features = [
+            'background-position', 'background-size', 'background-repeat', 'overflow', 'overflow-x', 'overflow-y',
+            'flex-grow', 'flex-shrink', 'gap', 'row-gap', 'column-gap', 'transition', 'transform'
+        ];
+        const datalist = document.getElementById('features');
+        const search = document.getElementById('search');
+        const suggestBox = document.getElementById('suggestBox');
+        const slist = document.getElementById('slist');
+
+        // populate datalist (so native suggestions also work)
+        features.forEach(f=>{const opt=document.createElement('option');opt.value=f;datalist.appendChild(opt)});
+
+        search.addEventListener('input', ()=>{
+            const q = search.value.trim().toLowerCase();
+            slist.innerHTML='';
+            if(!q){suggestBox.style.display='none';return}
+            const matches = features.filter(f=>f.includes(q)).slice(0,6);
+            if(matches.length===0){suggestBox.style.display='none';return}
+            matches.forEach(m=>{const li=document.createElement('li');li.textContent=m;li.onclick=()=>{search.value=m;suggestBox.style.display='none'}});
+            matches.forEach(m=>{const li=document.createElement('li');li.textContent=m;li.onclick=()=>{search.value=m;suggestBox.style.display='none'};slist.appendChild(li)});
+            suggestBox.style.display='block';
+        });
+    </script>
+</body>
+</html>
