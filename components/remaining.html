@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Remaining — Demos</title>
     <style>
-        :root{--accent:#2b7a78;--muted:#f4f4f4}
+        :root{--accent:#cb8515;--muted:#f4f4f4}
         body{font-family:system-ui,Segoe UI,Arial;margin:0;padding:20px;background:#fff}
         header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
         nav{display:flex;gap:12px;align-items:center}
@@ -13,7 +13,7 @@
         nav .brand{font-weight:700;color:var(--accent)}
         nav details{position:relative}
         nav summary{list-style:none;cursor:pointer;padding:6px 10px;border-radius:6px}
-        nav details[open] summary{background:rgba(43,122,120,0.06)}
+        nav details[open] summary{background:rgba(3, 3, 3, 0.06)}
         nav details ul{position:absolute;left:0;top:calc(100% + 6px);background:#fff;border:1px solid #ddd;padding:6px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
         nav details ul li{padding:6px 10px;white-space:nowrap}
 
@@ -58,7 +58,7 @@
         <nav>
             <a href="#">Home</a>
             <details>
-                <summary>Components ▾</summary>
+                <summary><a href="#">Components</a> ▾</summary>
                 <ul>
                     <li><a href="../index.html">Index</a></li>
                     <li><a href="../first.html">First</a></li>
@@ -66,8 +66,8 @@
                 </ul>
             </details>
             <a href="#examples">Examples</a>
-            <form onsubmit="event.preventDefault();" style="margin-left:8px">
-                <input list="quick" id="nav-search" placeholder="Quick search..." style="padding:6px;border-radius:6px;border:1px solid #ccc">
+            <form style="margin-left:8px">
+                <input list="quick" placeholder="Quick search..." style="padding:6px;border-radius:6px;border:1px solid #ccc">
                 <datalist id="quick">
                     <option value="background-position"></option>
                     <option value="overflow"></option>
@@ -124,15 +124,36 @@
         </section>
 
         <section id="examples">
-            <h3>Search recommendations (datalist + JS)</h3>
+            <h3>Search recommendations (HTML-only)
+            </h3>
             <div style="display:flex;gap:12px;align-items:flex-start">
                 <div>
-                    <input id="search" placeholder="Type feature name..." style="padding:8px;border:1px solid #ccc;border-radius:6px;width:320px" aria-label="search features">
-                    <datalist id="features"></datalist>
+                    <input list="features" placeholder="Type feature name..." style="padding:8px;border:1px solid #ccc;border-radius:6px;width:320px" aria-label="search features">
+                    <datalist id="features">
+                        <option value="background-position"></option>
+                        <option value="background-size"></option>
+                        <option value="background-repeat"></option>
+                        <option value="overflow"></option>
+                        <option value="overflow-x"></option>
+                        <option value="overflow-y"></option>
+                        <option value="flex-grow"></option>
+                        <option value="flex-shrink"></option>
+                        <option value="gap"></option>
+                        <option value="row-gap"></option>
+                        <option value="column-gap"></option>
+                        <option value="transition"></option>
+                        <option value="transform"></option>
+                    </datalist>
                 </div>
-                <div class="suggestions" id="suggestBox" aria-live="polite" style="display:none">
+                <div class="suggestions">
                     <strong>Suggestions</strong>
-                    <ul id="slist"></ul>
+                    <ul>
+                        <li>background-position</li>
+                        <li>overflow</li>
+                        <li>flex grow/shrink</li>
+                        <li>gap / row-gap / column-gap</li>
+                        <li>transition</li>
+                    </ul>
                 </div>
             </div>
         </section>
