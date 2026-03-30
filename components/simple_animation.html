@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Animation with HTML and CSS</title>
+    <style>
+        :root {
+            --bg: #f4efe6;
+            --panel: #fffaf3;
+            --ink: #1f2937;
+            --soft: #6b7280;
+            --line: #dfd2bf;
+            --accent: #c56a2d;
+            --accent-dark: #7c3b10;
+            --accent-light: #f7d6b7;
+            --teal: #1f7a8c;
+            --shadow: 0 16px 35px rgba(72, 42, 18, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, #fff7eb 0, #fff7eb 18%, transparent 19%),
+                linear-gradient(135deg, #f8f1e8, #efe3d0);
+            line-height: 1.6;
+        }
+
+        .page {
+            width: min(1150px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 48px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(197, 106, 45, 0.15), rgba(31, 122, 140, 0.14));
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(2rem, 3vw, 3.4rem);
+            line-height: 1.15;
+        }
+
+        .hero p {
+            margin: 0;
+            max-width: 760px;
+            color: var(--soft);
+            font-size: 1.05rem;
+        }
+
+        .tip-box {
+            margin-top: 18px;
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.75);
+            border-left: 5px solid var(--accent);
+            border-radius: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            margin-top: 0;
+            color: var(--soft);
+        }
+
+        .demo-area {
+            min-height: 160px;
+            display: grid;
+            place-items: center;
+            margin: 16px 0;
+            padding: 18px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, #fff, #f7efe4);
+            border: 1px dashed #d7c2aa;
+            overflow: hidden;
+        }
+
+        .label {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #f3e6d8;
+            color: var(--accent-dark);
+            font-size: 0.86rem;
+            font-weight: 600;
+        }
+
+        .code-note {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: #fff;
+            border: 1px solid #ead8c6;
+            border-radius: 14px;
+            font-size: 0.95rem;
+        }
+
+        .button-demo {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 999px;
+            background: var(--accent);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .button-demo:hover {
+            background: var(--accent-dark);
+            transform: translateY(-6px);
+            box-shadow: 0 14px 24px rgba(124, 59, 16, 0.28);
+        }
+
+        .transform-box {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #1f7a8c, #4fa7b7);
+            color: white;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            transition: transform 0.6s ease;
+        }
+
+        .transform-box:hover {
+            transform: rotate(12deg) scale(1.12) skew(-5deg) translateX(10px);
+        }
+
+        .zoom-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .zoom-card {
+            width: 140px;
+            height: 140px;
+            border-radius: 22px;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: white;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        .zoom-in {
+            background: linear-gradient(135deg, #ed7a3a, #cf4f00);
+        }
+
+        .zoom-in:hover {
+            transform: scale(1.18);
+        }
+
+        .zoom-out {
+            background: linear-gradient(135deg, #4059ad, #293b80);
+        }
+
+        .zoom-out:hover {
+            transform: scale(0.84);
+        }
+
+        .fade-box {
+            width: min(100%, 320px);
+            padding: 22px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #fff6cc, #ffd7a8);
+            border: 1px solid #efc28d;
+            text-align: center;
+            font-weight: 700;
+            animation: fadeInBox 2.6s ease-in-out infinite alternate;
+        }
+
+        .fade-hover {
+            width: min(100%, 260px);
+            padding: 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #d5f5ec, #90e0d0);
+            border: 1px solid #85cfbf;
+            text-align: center;
+            transition: opacity 0.6s ease;
+        }
+
+        .fade-hover:hover {
+            opacity: 0.25;
+        }
+
+        .movement-stage {
+            position: relative;
+            width: min(100%, 360px);
+            height: 90px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #f2dfc8, #ead4bc);
+            border: 1px solid #d8b99a;
+            overflow: hidden;
+        }
+
+        .movement-ball {
+            position: absolute;
+            top: 15px;
+            left: 16px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c56a2d, #7c3b10);
+            animation: moveSide 3.5s ease-in-out infinite alternate;
+        }
+
+        .text-panel {
+            margin-top: 24px;
+            background: #fffaf4;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .text-panel h2 {
+            margin-top: 0;
+        }
+
+        .text-panel ul {
+            margin: 10px 0 0;
+            padding-left: 20px;
+        }
+
+        code {
+            background: #f4eadf;
+            padding: 2px 6px;
+            border-radius: 6px;
+            color: #7b3f19;
+        }
+
+        @keyframes fadeInBox {
+            from {
+                opacity: 0.2;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes moveSide {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(268px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                width: min(100% - 20px, 100%);
+                padding: 20px 0 32px;
+            }
+
+            .hero,
+            .card,
+            .text-panel {
+                padding: 18px;
+            }
+
+            .movement-stage {
+                height: 84px;
+            }
+
+            .movement-ball {
+                width: 54px;
+                height: 54px;
+            }
+
+            @keyframes moveSide {
+                from {
+                    transform: translateX(0);
+                }
+                to {
+                    transform: translateX(210px);
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <h1>HTML + CSS Animation Teaching Demo</h1>
+            <p>
+                This page is made for classroom teaching. It shows the basic ideas of animation in web development:
+                <strong>transition</strong>, <strong>transform</strong>, hover effects, zoom effects, fade effects,
+                and simple movement using <strong>CSS keyframes</strong>.
+            </p>
+            <div class="tip-box">
+                Start with this rule when teaching: <code>transition</code> controls how change happens, and
+                <code>transform</code> controls what kind of visual change happens.
+            </div>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <h2>1. Transition Example</h2>
+                <p>
+                    Move the mouse over the button. The color, shadow, and position change smoothly because of
+                    <code>transition</code>.
+                </p>
+                <div class="demo-area">
+                    <button class="button-demo">Hover Me</button>
+                </div>
+                <span class="label">Concept: Smooth change over time</span>
+                <div class="code-note">
+                    Teaching point: Without <code>transition</code>, the button changes instantly. With
+                    <code>transition: 0.4s ease;</code>, the same change becomes animated.
+                </div>
+            </article>
+
+            <article class="card">
+                <h2>2. Transform Example</h2>
+                <p>
+                    Hover on the box to see <code>rotate()</code>, <code>scale()</code>, <code>skew()</code>, and
+                    <code>translateX()</code> working together.
+                </p>
+                <div class="demo-area">
+                    <div class="transform-box">Transform</div>
+                </div>
+                <span class="label">Concept: Shape or position change</span>
+                <div class="code-note">
+                    Teaching point: <code>transform</code> does not change normal document flow. It changes how the
+                    element is visually displayed.
+                </div>
+            </article>
+
+            <article class="card">
+                <h2>3. Hover Zoom In and Zoom Out</h2>
+                <p>
+                    Hover the first box for zoom in and the second box for zoom out. This is a very common UI effect.
+                </p>
+                <div class="demo-area">
+                    <div class="zoom-row">
+                        <div class="zoom-card zoom-in">Zoom In</div>
+                        <div class="zoom-card zoom-out">Zoom Out</div>
+                    </div>
+                </div>
+                <span class="label">Concept: <code>transform: scale()</code></span>
+                <div class="code-note">
+                    Teaching point: Values greater than <code>1</code> zoom in, and values smaller than
+                    <code>1</code> zoom out.
+                </div>
+            </article>
+
+            <article class="card">
+                <h2>4. Fade Animations</h2>
+                <p>
+                    The first box uses an automatic fade animation with <code>@keyframes</code>. The second one fades
+                    on hover with <code>opacity</code>.
+                </p>
+                <div class="demo-area">
+                    <div class="fade-box">Automatic Fade In</div>
+                </div>
+                <div class="demo-area">
+                    <div class="fade-hover">Hover to Fade Out</div>
+                </div>
+                <span class="label">Concept: <code>opacity</code> + keyframes</span>
+                <div class="code-note">
+                    Teaching point: Fade effects are often created by changing <code>opacity</code> from
+                    <code>0</code> to <code>1</code> or from <code>1</code> to a lower value.
+                </div>
+            </article>
+
+            <article class="card">
+                <h2>5. Repeating Movement</h2>
+                <p>
+                    This ball moves left to right again and again using CSS only. This is done with
+                    <code>@keyframes</code>, not JavaScript.
+                </p>
+                <div class="demo-area">
+                    <div class="movement-stage">
+                        <div class="movement-ball"></div>
+                    </div>
+                </div>
+                <span class="label">Concept: Custom animation timeline</span>
+                <div class="code-note">
+                    Teaching point: Use <code>@keyframes</code> when the animation should run by itself, not only on
+                    hover.
+                </div>
+            </article>
+
+            <article class="card">
+                <h2>6. Teacher Notes</h2>
+                <p>
+                    These are the core ideas students should understand after this lesson.
+                </p>
+                <div class="code-note">
+                    <strong>Transition:</strong> controls speed, timing, and smoothness.<br>
+                    <strong>Transform:</strong> controls movement, size, rotation, and skew.<br>
+                    <strong>Opacity:</strong> controls fade effects.<br>
+                    <strong>Keyframes:</strong> useful for custom repeated animations.
+                </div>
+                <div class="code-note">
+                    Some animations are usually JavaScript-dependent, such as:
+                    sliders, animations on scroll, counting numbers, drag effects, and animations that react to user
+                    clicks in complex ways.
+                </div>
+                <span class="label">For this file: HTML + CSS only</span>
+            </article>
+        </section>
+
+        <section class="text-panel">
+            <h2>How to Explain This to Students</h2>
+            <ul>
+                <li>Use <code>:hover</code> when you want animation only during mouse interaction.</li>
+                <li>Use <code>transition</code> for simple state changes like color, size, position, or opacity.</li>
+                <li>Use <code>transform</code> for rotate, scale, move, and skew effects.</li>
+                <li>Use <code>@keyframes</code> for automatic or repeated animations.</li>
+                <li>Use CSS for simple and medium-level animations before moving to JavaScript.</li>
+                <li>Use JavaScript when animation depends on scroll position, click logic, timers, or dynamic data.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
