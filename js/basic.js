@@ -263,3 +263,8 @@ p = 'ali';
 t = 'khan';
 p += t;
 console.log(p);
+function add(a, b) {
+    return a + b;
+}
+c = add(5, 10);
+console.log('c =', c);
